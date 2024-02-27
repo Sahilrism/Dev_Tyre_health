@@ -1,0 +1,25 @@
+version: '3.7'
+services: 
+    api:
+        build: .
+        container_name: "dev_tyre_health_api"
+        restart : always
+        ports: 
+            - "8091:8091"
+        volumes:
+          - ./uploaded_files:/uploaded_files
+
+        deploy:
+          resources:
+            reservations:
+              devices:
+                - driver: nvidia
+                  count: 1
+                  capabilities: [gpu]
+
+
+        environment:
+          - LC_ALL=C.UTF-8
+          - LANG=C.UTF-8
+        environment:
+          - TZ=Asia/Kolkata
